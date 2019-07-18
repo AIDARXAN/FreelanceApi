@@ -1,0 +1,11 @@
+.idea
+.vscode
+
+Snippet/
+api_4_env/
+
+__pycache__/
+
+
+db.sqlite3
+.env

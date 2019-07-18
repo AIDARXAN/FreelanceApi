@@ -1,0 +1,20 @@
+Django==2.2.3
+kombu==4.6.3
+django-environ==0.4.5
+djangorestframework==3.9.4
+coreapi==2.3.3
+pyyaml==5.1.1
+django-rest-auth==0.9.5
+coreapi-cli==1.0.9
+
+
+# registration django-rest-framework[with_social]
+ certifi==2019.6.16
+ chardet==3.0.4
+ defusedxml==0.6.0
+ django-allauth==0.39.1
+ idna-2.8 oauthlib==3.0.2
+ python3-openid==3.1.0
+ requests==2.22.0
+ requests-oauthlib==1.2.0
+ urllib3==1.25.3
