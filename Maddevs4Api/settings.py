@@ -35,7 +35,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['*']
-# AUTH_USER_MODEL = 'freelance.UserProfile'
+AUTH_USER_MODEL = 'user.User'
 # Application definition
 
 INSTALLED_APPS = [
@@ -47,17 +47,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'rest_framework',
-    'rest_framework.authtoken',
-    'rest_auth',
-    'allauth',
-    'allauth.account',
-    'rest_auth.registration',
-    'freelance',
+    'user',
     'billing',
     'task',
     'base',
     'api',
-    'Snippet.apps.SnippetConfig',
 ]
 
 SITE_ID = 1
