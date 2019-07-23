@@ -6,7 +6,7 @@ User = get_user_model()
 
 class UserLoginSerializer(serializers.ModelSerializer):
     email = serializers.CharField()
-    password = serializers.CharField(style={'placeholder': 'password', 'input_type': 'password'})
+    password = serializers.CharField(style={'input_type': 'password', 'placeholder': 'password'})
 
     class Meta:
         model = User

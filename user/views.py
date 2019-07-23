@@ -3,13 +3,14 @@ from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .serializers import UserLoginSerializer, UserRegistrationSerializer
 
 User = get_user_model()
 
 
-class UserLoginView(generics.CreateAPIView):
+class UserLoginView(APIView):
     serializer_class = UserLoginSerializer
     permission_classes = (AllowAny, )
 
@@ -36,6 +37,6 @@ class UserRegistrationView(generics.CreateAPIView):
         if input_data.is_valid():
             User.objects.create_user(**input_data.validated_data)
 
-            return Response(status=status.HTTP_200_OK)
+            return Response(status=status.HTTP_201_CREATED)
 
         return Response(input_data.errors, status=status.HTTP_401_UNAUTHORIZED)
