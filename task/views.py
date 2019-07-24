@@ -18,6 +18,9 @@ class TaskCreateView(generics.CreateAPIView):
         input_data = self.serializer_class(data=request.data)
 
         if input_data.is_valid():
+            # TODO write balance update for customer
+            # with transaction.atomic():
+            #     Balance.task_created_transaction(request.user, )
             input_data.save(customer=request.user)
 
             return Response(status=status.HTTP_201_CREATED)
@@ -41,7 +44,7 @@ class TaskDetailView(generics.RetrieveUpdateDestroyAPIView):
         task = get_object_or_404(Task, id=id)
 
         with transaction.atomic():
-            Balance.update_balance(request.user, task.price, task=task)
+            Balance.job_done_transaction(request.user, task.price, task=task)
 
         Task.objects.filter(id=id, executor=None).update(executor=request.user, accomplished=True)
 
