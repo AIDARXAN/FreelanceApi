@@ -5,8 +5,8 @@ User = get_user_model()
 
 
 class Task(models.Model):
-    customer = models.ForeignKey(User, related_name='customer', on_delete=models.CASCADE)
-    executor = models.ForeignKey(User, related_name='executor', on_delete=models.CASCADE, null=True, blank=True)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    executor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='executor', null=True, blank=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
     created = models.DateTimeField(auto_now_add=True)

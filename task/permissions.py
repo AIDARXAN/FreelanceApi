@@ -1,7 +1,7 @@
 from rest_framework import permissions
 
 
-class IsOwnerTask(permissions.BasePermission):
+class IsOwner(permissions.BasePermission):
     def has_object_permission(self, request, view, object):
         if request.method in permissions.SAFE_METHODS:
             return True
@@ -9,6 +9,6 @@ class IsOwnerTask(permissions.BasePermission):
         return object.customer == request.user
 
 
-class IsCustomerUser(permissions.BasePermission):
+class IsCustomer(permissions.BasePermission):
     def has_permission(self, request, view):
-        return request.user.role == 'customer'
+        return request.user.group == '1'

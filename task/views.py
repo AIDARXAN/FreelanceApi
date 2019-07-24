@@ -1,22 +1,23 @@
-from django.shortcuts import render, get_object_or_404
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.db import transaction
+from django.shortcuts import get_object_or_404
 
+from billing.models import Balance
 from task.models import Task
-from .permissions import IsCustomerUser, IsOwnerTask
+from .permissions import IsCustomer, IsOwner
 from .serializers import TaskCreateSerializer, TaskDetailSerializer, TaskListSerializer, TaskUpdateExecutorSerializer
 
 
 class TaskCreateView(generics.CreateAPIView):
     serializer_class = TaskCreateSerializer
-    permission_classes = (permissions.IsAuthenticated, IsOwnerTask)
+    permission_classes = (permissions.IsAuthenticated, IsOwner)
 
     def post(self, request, *args, **kwargs):
         input_data = self.serializer_class(data=request.data)
 
-        if input_data.is_vaild():
+        if input_data.is_valid():
             input_data.save(customer=request.user)
 
             return Response(status=status.HTTP_201_CREATED)
@@ -29,18 +30,18 @@ class TaskListView(generics.ListAPIView):
     serializer_class = TaskListSerializer
 
 
-class TaskDetailView(generics.RetrieveAPIView):
+class TaskDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
     lookup_field = 'id'
     serializer_class = TaskDetailSerializer
-    permission_classes = (permissions.IsAuthenticated, IsCustomerUser)
+    permission_classes = (permissions.IsAuthenticated, IsCustomer)
 
     @api_view(['POST', 'GET'])
-    def accept(self, request, id):
+    def accept(request, id):
         task = get_object_or_404(Task, id=id)
 
         with transaction.atomic():
-            request.user.update_balance(task.price, task=task)
+            Balance.update_balance(request.user, task.price, task=task)
 
         Task.objects.filter(id=id, executor=None).update(executor=request.user, accomplished=True)
 

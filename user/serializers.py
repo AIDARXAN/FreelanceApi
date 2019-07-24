@@ -5,12 +5,12 @@ User = get_user_model()
 
 
 class UserLoginSerializer(serializers.ModelSerializer):
-    email = serializers.CharField()
+    username = serializers.CharField()
     password = serializers.CharField(style={'input_type': 'password', 'placeholder': 'password'})
 
     class Meta:
         model = User
-        fields = ('email', 'password')
+        fields = ('username', 'password')
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):

@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from billing.models import Balance, LogTransaction
+
+admin.site.register(Balance)
+admin.site.register(LogTransaction)
