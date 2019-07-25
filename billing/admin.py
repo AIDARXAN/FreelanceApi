@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-from billing.models import Balance, LogTransaction
+from billing.models import TransactionsLog
 
-admin.site.register(Balance)
-admin.site.register(LogTransaction)
+admin.site.register(TransactionsLog)

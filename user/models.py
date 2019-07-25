@@ -16,5 +16,5 @@ class User(AbstractUser):
     )
 
     group = models.CharField(max_length=20, choices=USER_GROUP_CHOICES)
-    balance = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
+    balance = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
 

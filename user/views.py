@@ -11,7 +11,6 @@ User = get_user_model()
 
 class UserLoginView(APIView):
     serializer_class = UserLoginSerializer
-    permission_classes = (AllowAny, )
 
     def post(self, request, *args, **kwargs):
         input_data = self.serializer_class(data=request.data)
